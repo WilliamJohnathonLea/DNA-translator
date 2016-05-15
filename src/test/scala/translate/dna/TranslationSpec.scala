@@ -44,18 +44,18 @@ class TranslationSpec extends TestBase {
   it should "return 'Val' if the Codon starts with 'GU'" in {
     Translation.translateCodon("GUA") should be("Val")
   }
-//
-//  it should "return 'Ser' if the Codon is 'UC'" in {
-//
-//  }
-//
-//  it should "return 'Ser' if the Codon is 'AGU'" in {
-//
-//  }
-//
-//  it should "return 'Ser' if the Codon is 'AGC'" in {
-//
-//  }
+
+  it should "return 'Ser' if the Codon starts with 'UC'" in {
+    Translation.translateCodon("UCA") should be("Ser")
+  }
+
+  it should "return 'Ser' if the Codon is 'AGU'" in {
+    Translation.translateCodon("AGU") should be("Ser")
+  }
+
+  it should "return 'Ser' if the Codon is 'AGC'" in {
+    Translation.translateCodon("AGC") should be("Ser")
+  }
 //
 //  it should "return 'Pro' if the Codon is 'CC'" in {
 //
@@ -77,17 +77,17 @@ class TranslationSpec extends TestBase {
 //
 //  }
 //
-//  it should "return 'Stop' if the Codon is 'UAA'" in {
-//
-//  }
-//
-//  it should "return 'Stop' if the Codon is 'UAG'" in {
-//
-//  }
-//
-//  it should "return 'Stop' if the Codon is 'UGA'" in {
-//
-//  }
+  it should "return 'Stop' if the Codon is 'UAA'" in {
+    Translation.translateCodon("UAA") should be("Stop")
+  }
+
+  it should "return 'Stop' if the Codon is 'UAG'" in {
+    Translation.translateCodon("UAG") should be("Stop")
+  }
+
+  it should "return 'Stop' if the Codon is 'UGA'" in {
+    Translation.translateCodon("UGA") should be("Stop")
+  }
 //
 //  it should "return 'His' if the Codon is 'CAU'" in {
 //
