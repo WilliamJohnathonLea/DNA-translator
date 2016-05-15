@@ -4,7 +4,13 @@ package translate.dna
   * Created by will on 14/05/16.
   */
 object Translation {
-  
+
+  val pheRegex = "UU[UC]"
+  val leuRegex = "CU.|UU[AG]"
+  val metRegex = "AU."
+  val serRegex = "UC.|AG."
+  val stopRegex = "UA[AG]|UGA"
+
   def translateSequence(geneString: String) : String = {
     geneString.length match {
       case 3 => translateCodon(geneString)
@@ -24,18 +30,18 @@ object Translation {
     else "Unknown"
   }
 
-  private def isPhe(codon: String) : Boolean = codon.startsWith("UU") && (codon.last == 'U' || codon.last == 'C')
+  private def isPhe(codon: String) : Boolean = codon.matches(pheRegex)
 
-  private def isLeu(codon: String) : Boolean = codon.startsWith("CU") || codon.startsWith("UU") && (codon.last == 'A' || codon.last == 'G')
+  private def isLeu(codon: String) : Boolean = codon.matches(leuRegex)
 
   private def isIle(codon: String) : Boolean = isMet(codon) && codon.last != 'G'
 
-  private def isMet(codon: String) : Boolean = codon.startsWith("AU")
+  private def isMet(codon: String) : Boolean = codon.matches(metRegex)
 
   private def isVal(codon: String) : Boolean = codon.startsWith("GU")
 
-  private def isSer(codon: String) : Boolean = codon.startsWith("UC") || codon.startsWith("AG")
+  private def isSer(codon: String) : Boolean = codon.matches(serRegex)
 
-  private def isStop(codon: String) : Boolean = codon.matches("UAA") || codon.matches("UAG") || codon.matches("UGA")
+  private def isStop(codon: String) : Boolean = codon.matches(stopRegex)
 
 }
