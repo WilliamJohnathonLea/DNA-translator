@@ -5,156 +5,88 @@ package translate.dna
   */
 class TranslationSpec extends TestBase {
 
-  "Translation#translateCodon" should "return 'Phe' if the Codon is 'UUU'" in {
-    Translation.translateCodon("UUU") should be("Phe")
+  "Translation#translateSequence" should "return an empty String if the gene sequence is less than 3 characters" in {
+    Translation.translateSequence("AU") should be("")
+  }
+
+  it should "return an empty String if the gene sequence has one codon and that codon is invalid" in {
+    Translation.translateSequence("QQQ") should be("")
+  }
+
+  it should "return 'Phe' if the gene sequence contains one codon matching the Phe pattern" in {
+    Translation.translateSequence("UUU") should be("Phe")
+  }
+
+  it should "return 'PheStop' if the gene sequence contains two codons where the 1st matches the Phe pattern and the 2nd matches the Stop pattern" in {
+    Translation.translateSequence("UUUUAA") should be("PheStop")
+  }
+
+  "Translation#findAndTranslate" should "return None if no match is found" in {
+    Translation.findAndTranslate("BBB", Translation.codonPatterns) should be(None)
+  }
+
+  it should "return 'Phe' if the Codon is 'UUU'" in {
+    Translation.findAndTranslate("UUU", Translation.codonPatterns) should be(Some("Phe"))
   }
 
   it should "return 'Phe' if the Codon is 'UUC'" in {
-    Translation.translateCodon("UUC") should be("Phe")
+    Translation.findAndTranslate("UUC", Translation.codonPatterns) should be(Some("Phe"))
   }
 
   it should "return 'Leu' if the Codon is 'UUA'" in {
-    Translation.translateCodon("UUA") should be("Leu")
+    Translation.findAndTranslate("UUA", Translation.codonPatterns) should be(Some("Leu"))
   }
 
   it should "return 'Leu' if the Codon is 'UUG'" in {
-    Translation.translateCodon("UUG") should be("Leu")
+    Translation.findAndTranslate("UUG", Translation.codonPatterns) should be(Some("Leu"))
   }
 
   it should "return 'Leu' if the Codon starts with 'CU'" in {
-    Translation.translateCodon("CUA") should be("Leu")
+    Translation.findAndTranslate("CUA", Translation.codonPatterns) should be(Some("Leu"))
   }
 
   it should "return 'Ile' if the Codon is 'AUU'" in {
-    Translation.translateCodon("AUU") should be("Ile")
+    Translation.findAndTranslate("AUU", Translation.codonPatterns) should be(Some("Ile"))
   }
 
   it should "return 'Ile' if the Codon is 'AUC'" in {
-    Translation.translateCodon("AUC") should be("Ile")
+    Translation.findAndTranslate("AUC", Translation.codonPatterns) should be(Some("Ile"))
   }
 
   it should "return 'Ile' if the Codon is 'AUA'" in {
-    Translation.translateCodon("AUA") should be("Ile")
+    Translation.findAndTranslate("AUA", Translation.codonPatterns) should be(Some("Ile"))
   }
 
   it should "return 'Met' if the Codon is 'AUG'" in {
-    Translation.translateCodon("AUG") should be("Met")
+    Translation.findAndTranslate("AUG", Translation.codonPatterns) should be(Some("Met"))
   }
 
   it should "return 'Val' if the Codon starts with 'GU'" in {
-    Translation.translateCodon("GUA") should be("Val")
+    Translation.findAndTranslate("GUA", Translation.codonPatterns) should be(Some("Val"))
   }
 
   it should "return 'Ser' if the Codon starts with 'UC'" in {
-    Translation.translateCodon("UCA") should be("Ser")
+    Translation.findAndTranslate("UCA", Translation.codonPatterns) should be(Some("Ser"))
   }
 
   it should "return 'Ser' if the Codon is 'AGU'" in {
-    Translation.translateCodon("AGU") should be("Ser")
+    Translation.findAndTranslate("AGU", Translation.codonPatterns) should be(Some("Ser"))
   }
 
   it should "return 'Ser' if the Codon is 'AGC'" in {
-    Translation.translateCodon("AGC") should be("Ser")
+    Translation.findAndTranslate("AGC", Translation.codonPatterns) should be(Some("Ser"))
   }
-//
-//  it should "return 'Pro' if the Codon is 'CC'" in {
-//
-//  }
-//
-//  it should "return 'Thr' if the Codon is 'AC'" in {
-//
-//  }
-//
-//  it should "return 'Ala' if the Codon is 'GC'" in {
-//
-//  }
-//
-//  it should "return 'Tyr' if the Codon is 'UAU'" in {
-//
-//  }
-//
-//  it should "return 'Tyr' if the Codon is 'UAC'" in {
-//
-//  }
-//
+
   it should "return 'Stop' if the Codon is 'UAA'" in {
-    Translation.translateCodon("UAA") should be("Stop")
+    Translation.findAndTranslate("UAA", Translation.codonPatterns) should be(Some("Stop"))
   }
 
   it should "return 'Stop' if the Codon is 'UAG'" in {
-    Translation.translateCodon("UAG") should be("Stop")
+    Translation.findAndTranslate("UAG", Translation.codonPatterns) should be(Some("Stop"))
   }
 
   it should "return 'Stop' if the Codon is 'UGA'" in {
-    Translation.translateCodon("UGA") should be("Stop")
+    Translation.findAndTranslate("UGA", Translation.codonPatterns) should be(Some("Stop"))
   }
-//
-//  it should "return 'His' if the Codon is 'CAU'" in {
-//
-//  }
-//
-//  it should "return 'His' if the Codon is 'CAC'" in {
-//
-//  }
-//
-//  it should "return 'Glm' if the Codon is 'CAA'" in {
-//
-//  }
-//
-//  it should "return 'Glm' if the Codon is 'CAG'" in {
-//
-//  }
-//
-//  it should "return 'Asn' if the Codon is 'AAU'" in {
-//
-//  }
-//
-//  it should "return 'Asn' if the Codon is 'AAC'" in {
-//
-//  }
-//
-//  it should "return 'Lys' if the Codon is 'AAA'" in {
-//
-//  }
-//
-//  it should "return 'Lys' if the Codon is 'AAG'" in {
-//
-//  }
-//
-//  it should "return 'Asp' if the Codon is 'GAU'" in {
-//
-//  }
-//
-//  it should "return 'Asp' if the Codon is 'GAC'" in {
-//
-//  }
-//
-//  it should "return 'Glu' if the Codon is 'GAA'" in {
-//
-//  }
-//
-//  it should "return 'Glu' if the Codon is 'GAG'" in {
-//
-//  }
-//
-//  it should "return 'Trp' if the Codon is 'UGG'" in {
-//
-//  }
-//
-//  it should "return 'Arg' if the Codon is 'CG'" in {
-//
-//  }
-//
-//  it should "return 'Arg' if the Codon is 'AGA'" in {
-//
-//  }
-//
-//  it should "return 'Arg' if the Codon is 'AGG'" in {
-//
-//  }
-//
-//  it should "return 'Gly' if the Codon is 'GG'" in {
-//
-//  }
 
 }
