@@ -32,11 +32,12 @@ object Translation {
     else findAndTranslate(codon, patternList.tail)
   }
 
-  def translateSequence(geneString: String) : String = {
+  @tailrec
+  def translateSequence(geneString: String, accStr: String = "") : String = {
     geneString.length match {
-      case 3 => findAndTranslate(geneString).fold("")(tc => tc) // tc = translated codon
+      case 3 => findAndTranslate(geneString).fold("")(tc => accStr + tc) // tc = translated codon
       case len if len > 3 =>
-        findAndTranslate(geneString.take(3)).fold("")(tc => tc) + translateSequence(geneString.drop(3))
+        translateSequence(geneString.drop(3), accStr + findAndTranslate(geneString.take(3)).fold("")(tc => tc))
       case _ => ""
     }
   }
