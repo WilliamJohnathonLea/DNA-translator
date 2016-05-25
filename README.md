@@ -9,3 +9,13 @@ Open a terminal in a the root directory of the project and then type the followi
 ```
 sbt "run <gene-sequence>"
 ```
+
+For example
+```
+sbt "run UUU"
+```
+
+The output from running the above will be:
+```
+Phe
+```
