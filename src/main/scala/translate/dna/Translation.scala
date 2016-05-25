@@ -34,8 +34,8 @@ object Translation {
     geneString.length match {
       case 3 => findAndTranslate(geneString).fold("")(tc => accStr + tc) // tc = translated codon
       case len if len > 3 =>
-        translateSequence(geneString.drop(3), accStr + findAndTranslate(geneString.take(3)).fold("")(tc => tc))
-      case _ => accStr
+        translateSequence(geneString.drop(3), accStr + findAndTranslate(geneString.take(3)).fold("")(tc => tc) + ",")
+      case _ => accStr.splitAt(accStr.lastIndexOf(','))._1 // Remove the trailing comma
     }
   }
 

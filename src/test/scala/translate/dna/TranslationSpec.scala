@@ -22,7 +22,7 @@ class TranslationSpec extends TestBase {
   }
 
   it should "return 'PheStop' if the gene sequence contains two codons where the 1st matches the Phe pattern and the 2nd matches the Stop pattern" in {
-    Translation.translateSequence("UUUUAA") should be("PheStop")
+    Translation.translateSequence("UUUUAA") should be("Phe,Stop")
   }
 
   "Translation#findAndTranslate" should "return None if no match is found" in {
