@@ -17,6 +17,10 @@ class TranslationSpec extends TestBase {
     Translation.translateSequence("UUU") should be("Phe")
   }
 
+  it should "return 'Phe' if the gene sequence contains one codon matching the Phe pattern and one extraneous character" in {
+    Translation.translateSequence("UUUAU") should be("Phe")
+  }
+
   it should "return 'PheStop' if the gene sequence contains two codons where the 1st matches the Phe pattern and the 2nd matches the Stop pattern" in {
     Translation.translateSequence("UUUUAA") should be("PheStop")
   }

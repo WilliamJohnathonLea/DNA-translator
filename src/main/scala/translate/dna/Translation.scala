@@ -7,23 +7,20 @@ import scala.annotation.tailrec
   */
 object Translation {
 
-  val pheRegex = "UU[UC]"
-  val leuRegex = "CU.|UU[AG]"
-  val metRegex = "AUG"
-  val ileRegex = "AU[UCA]"
-  val valRegex = "GU."
-  val serRegex = "UC.|AG."
-  val stopRegex = "UA[AG]|UGA"
-
   val codonPatterns = List(
-    pheRegex -> "Phe",
-    leuRegex -> "Leu",
-    metRegex -> "Met",
-    ileRegex -> "Ile",
-    valRegex -> "Val",
-    serRegex -> "Ser",
-    stopRegex -> "Stop"
+    "UU[UC]" -> "Phe",
+    "CU.|UU[AG]" -> "Leu",
+    "AUG" -> "Met",
+    "AU[UCA]" -> "Ile",
+    "GU." -> "Val",
+    "UC.|AG." -> "Ser",
+    "UA[AG]|UGA" -> "Stop"
   )
+
+  def main(args: Array[String]) : Unit = args.length match {
+    case 1 => println(translateSequence(args(0)))
+    case _ => println("ERROR: You need to pass one argument to this program which contains the gene sequence you want to translate")
+  }
 
   @tailrec
   def findAndTranslate(codon: String, patternList: List[(String, String)] = codonPatterns) : Option[String] = {
@@ -38,7 +35,7 @@ object Translation {
       case 3 => findAndTranslate(geneString).fold("")(tc => accStr + tc) // tc = translated codon
       case len if len > 3 =>
         translateSequence(geneString.drop(3), accStr + findAndTranslate(geneString.take(3)).fold("")(tc => tc))
-      case _ => ""
+      case _ => accStr
     }
   }
 
