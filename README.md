@@ -1,4 +1,4 @@
-# DNA-translator
+# DNA-translator [![Build Status](https://travis-ci.org/WilliamJohnathonLea/DNA-translator.svg?branch=master)](https://travis-ci.org/WilliamJohnathonLea/DNA-translator)
 A command-line tool for translating DNA sequences
 
 ## Prerequisite
